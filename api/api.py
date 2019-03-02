@@ -5,6 +5,8 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
 # Create basic example of API
+
+# Employees array for proof of concept, will be replaced with DB queries later
 employees = [
     {'id': 0,
      'name': 'Steven Strange',
@@ -20,8 +22,9 @@ employees = [
 @app.route('/', methods=['GET'])
 def home():
     return '''<h1>John's Hopkins University Scheduler</h1>
-<p>A prototype API for CMSC447 scheduler project.</p>'''
+<p>A prototype API for CMSC447 Group 8 scheduler project.</p>'''
 
+#TODO: Implement way to query DB and put all employees in an array like the employees array above to display in API response
 
 # A route to return all employees.
 @app.route('/api/v1/employees/all', methods=['GET'])
