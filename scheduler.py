@@ -5,6 +5,10 @@ from ortools.sat.python import cp_model
 ###To start, we should focus on being able to fill quotas for doctors and PAs.
 ###We could possibly use the same algo for doctors and PAs, but it might be easier to have two seperate
 ###algorithms for each as they have different variable constraints
+###Perhaps include classes for Doctors and PAs
+###Main can be changed to just call the functions
+
+
 
 def main():
     # This program tries to find an optimal assignment of nurses to shifts
@@ -12,7 +16,7 @@ def main():
     # Each nurse can request to be assigned to specific shifts.
     # The optimal assignment maximizes the number of fulfilled shift requests.
 
-    #These can be user defined variables that will be saved.
+    ###These can be user defined variables that will be saved.
     ###Also include places where the days can be split up, such as 8 hour shifts during weekdays and 12 hour during weekends.
     ###Could ask for which days have how many x hour shifts and can be calculated after that.
     ###IMPORTANT: Keep track of the # of weeks in a month and how the weeks are filled. 
@@ -37,6 +41,7 @@ def main():
                        [0, 1, 0], [0, 0, 0]]]
   
     # Creates the model.
+    ###This : https://developers.google.com/optimization/cp/cp_solver helps show what a cp_model is and what it's functions do
     model = cp_model.CpModel()
 
     # Creates shift variables.
@@ -57,6 +62,7 @@ def main():
 
     # Each nurse works at most one shift per day.
     ###Should hold true
+    ###Can also check so that no doctor works a full week, or night-day
     for n in all_nurses:
         for d in all_days:
             model.Add(sum(shifts[(n, d, s)] for s in all_shifts) <= 1)
@@ -64,7 +70,7 @@ def main():
     # min_shifts_assigned is the largest integer such that every nurse can be
     # assigned at least that number of shifts.
     ###Depending on constraints, nurses might not have to work a certain amount of shifts,
-    ###Here would be a good place to instead track if a nurse has made a quoto or not, and ajust the schedule accordingly
+    ###Here would be a good place to instead track if a nurse has made a quoto or not, and adjust the schedule accordingly
     min_shifts_per_nurse = (num_shifts * num_days) // num_nurses
     max_shifts_per_nurse = min_shifts_per_nurse + 1
     for n in all_nurses:
@@ -79,7 +85,7 @@ def main():
     
 
     # Creates the solver and solve.
-    ###If there is a conflict we will have to add in moonlighters.
+    ###It seems like .Solve() handles finding the best solution
     solver = cp_model.CpSolver()
     solver.Solve(model)
     for d in all_days:
@@ -92,6 +98,8 @@ def main():
                     else:
                         print('Nurse', n, 'works shift', s, '(not requested).')
         print()
+
+    ###If there are no moonlighters, try another solution. 
 
     # Statistics.
     print()
