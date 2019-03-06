@@ -12,4 +12,4 @@ CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 1. `python api.py`
 1. Go to http://127.0.0.1:5000 to see homepage for the API
 1. Go to http://127.0.0.1:5000/api/v1/employees to see a list of all employees 
-1. Go to http://127.0.0.1:5000/api/v1/employees/id?employee_id=[EMPLOYEE_ID] to see single employee
+1. Go to http://127.0.0.1:5000/api/v1/employees/{EMPLOYEE_ID} to see single employee
