@@ -16,6 +16,7 @@
 from __future__ import print_function
 
 import argparse
+import datetime
 
 # Scheduler configurations
 import scheduler_config
@@ -36,6 +37,7 @@ PARSER.add_argument(
     'proto to.')
 PARSER.add_argument('--params', default="", help='Sat solver parameters.')
 
+now = datetime.datetime.now()
 
 def solve_shift_scheduling(params, output_proto, num_employees, num_weeks, shifts, fixed_assignments, requests, shift_constraints,
                              weekly_sum_constraints, penalized_transitions, weekly_cover_demands, excess_cover_penalties):
@@ -193,6 +195,8 @@ def solve_shift_scheduling(params, output_proto, num_employees, num_weeks, shift
 
 def main(args):
     
+    print("Logs for Scheduler run on " + now.strftime("%Y-%m-%d %H:%M"))
+
     #TODO: Generate fixed assignments and requests from DB once it's set up.
     
     # Fixed assignment: (employee, shift, day).
