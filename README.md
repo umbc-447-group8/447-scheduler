@@ -5,6 +5,7 @@ CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 * [Python3](https://www.python.org/downloads/)
 * [pip](https://www.liquidweb.com/kb/install-pip-windows/)
 * Flask (`pip install flask`)
+* OR-Tools (`python -m pip install --user ortools`)
 
 ## Running the API server
 1. Clone the repo
