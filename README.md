@@ -14,6 +14,112 @@ CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 1. Go to http://127.0.0.1:5000 to see homepage for the API
 1. Go to http://127.0.0.1:5000/api/v1/employees to see a list of all employees 
 1. Go to http://127.0.0.1:5000/api/v1/employees/{EMPLOYEE_ID} to see single employee
+1. Go to http://127.0.0.1:5000/api/v1/keys to see a list of all keys 
+1. Go to http://127.0.0.1:5000/api/v1/keys/{API_KEY_ID} to see single API key
+1. Go to http://127.0.0.1:5000/api/v1/locations to see a list of all locations 
+1. Go to http://127.0.0.1:5000/api/v1/locations/{LOCATION_ID} to see single location
+1. Go to http://127.0.0.1:5000/api/v1/requests to see a list of all employee requests 
+1. Go to http://127.0.0.1:5000/api/v1/requests/{REQUEST_ID} to see single request
+
+### Supported API Methods:
+* `Get`
+* `Post`
+* `Put` (Must specifiy id as an endpoint)
+* `Delete` (Must specifiy id as an endpoint)
+
+### API Schemas:
+**Employees:**
+```
+[
+  {
+    "employee_id": "DR001",
+    "id": 0,
+    "name": "Steven Strange",
+    "type": "Doctor"
+  },
+  {
+    "employee_id": "PA002",
+    "id": 1,
+    "name": "Claire Temple",
+    "type": "PA"
+  }
+]
+```
+
+**API Keys:**
+```
+[
+  {
+    "id": 0,
+    "key": "bfxgdsxbtgfegsvtfrsdhrshtrsht",
+    "name": "testKey"
+  },
+  {
+    "id": 1,
+    "key": "gtrsgtrgt4esgt4ht",
+    "name": "newkey2"
+  }
+]
+```
+
+**Locations:**
+```
+[
+  {
+    "coverage": [
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1]
+    ],
+    "id": 0,
+    "name": "Location A"
+  },
+  {
+    "coverage": [
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0]
+    ],
+    "id": 1,
+    "name": "Location B"
+  }
+]
+```
+
+**Requests:**
+```
+[
+  {
+    "day": 3,
+    "employee_id": "DR001",
+    "request_id": 0,
+    "shift": 0,
+    "weight": -2
+  },
+  {
+    "day": 4,
+    "employee_id": "PA001",
+    "request_id": 1,
+    "shift": 3,
+    "weight": 4
+  },
+  {
+    "day": 57,
+    "employee_id": "DR001",
+    "request_id": 2,
+    "shift": 1,
+    "weight": -2
+  }
+]
+```
 
 ## Running the scheduler
 1. Clone the repo
