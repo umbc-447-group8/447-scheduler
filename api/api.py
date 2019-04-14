@@ -2,13 +2,17 @@ import flask
 from flask import request, jsonify, Flask
 from flask_restful import reqparse, abort, Api, Resource
 import json
+import os
 
 app = Flask(__name__)
 api = Api(app)
 app.config["DEBUG"] = True
 
+#get the current working directory
+file_path = os.path.dirname(os.path.abspath(__file__))
+
 # Get APIKeys and store into array
-input_file = open('..\data\config.json', 'r')
+input_file = open(file_path + '/../data/config.json', 'r')
 json_array = json.load(input_file)
 apiKeys = []
 for item in json_array:
@@ -20,7 +24,7 @@ for item in json_array:
 input_file.close()
 
 # Get Employees and store into array
-input_file = open('..\data\employees.json', 'r')
+input_file = open(file_path + '/../data/employees.json', 'r')
 json_array = json.load(input_file)
 employees = []
 for item in json_array:
@@ -33,7 +37,7 @@ for item in json_array:
 input_file.close()
 
 # Get Locations and store into array
-input_file = open('..\data\locations.json', 'r')
+input_file = open(file_path + '/../data/locations.json', 'r')
 json_array = json.load(input_file)
 locations = []
 for item in json_array:
@@ -45,7 +49,7 @@ for item in json_array:
 input_file.close()
 
 # Get Requests and store into array
-input_file = open('..\data\\requests.json', 'r')
+input_file = open(file_path + '/../data/requests.json', 'r')
 json_array = json.load(input_file)
 requests = []
 for item in json_array:
@@ -75,20 +79,20 @@ class EmployeeList(Resource):
                     emp_id = employee['id']
                 if employee_details['employee_id'] == employee['employee_id']:
                     raise Exception('Provided employee_id already exists')
-            emp_id = emp_id + 1 
+            emp_id = emp_id + 1
             # Parse request body and put into a new employee
             new_employee = {"id":None, "name":None, "employee_id":None, "type":None}
             new_employee['id'] = emp_id
             new_employee['name'] = employee_details['name']
             new_employee['employee_id'] = employee_details['employee_id']
             new_employee['type'] = employee_details['type']
-        except: 
+        except:
             return {'message': 'Invalid employee data provided'}, 400
         # Save new employee
         employees.append(new_employee)
-        
+
         # Save updated array to file
-        output_file = open('..\data\employees.json', 'w')
+        output_file = open(file_path + '/../data/employees.json', 'w')
         json.dump(employees, output_file)
         output_file.close()
 
@@ -102,7 +106,7 @@ class Employee(Resource):
             return jsonify(result)
         else:
             return "Error: No employee found with that employee_id. Please enter a valid employee_id.", 404
-    
+
     def put(self, employee_id):
         employee_details = request.get_json(force=True)
         # Empty request
@@ -118,7 +122,7 @@ class Employee(Resource):
             if result:
                 result['name'] = employee_details['name']
                 result['type'] = employee_details['type']
-                output_file = open('..\data\employees.json', 'w')
+                output_file = open(file_path + '/../data/employees.json', 'w')
                 json.dump(employees, output_file)
                 output_file.close()
             # No employee found
@@ -137,7 +141,7 @@ class Employee(Resource):
             # Delete employee
             if result:
                 employees.remove(result)
-                output_file = open('..\data\employees.json', 'w')
+                output_file = open(file_path + '/../data/employees.json', 'w')
                 json.dump(employees, output_file)
                 output_file.close()
             # No employee found
@@ -149,7 +153,7 @@ class Employee(Resource):
 class APIKeys(Resource):
     def get(self):
         return jsonify(apiKeys)
-    
+
     def post(self):
         key_details = request.get_json(force=True)
         # empty request
@@ -168,13 +172,13 @@ class APIKeys(Resource):
             new_key['name'] = key_details['name']
             new_key['key'] = key_details['key']
         # No key found
-        except: 
+        except:
             return {'message': 'Invalid key data provided'}, 400
         # Save new key
         apiKeys.append(new_key)
-        
+
         # Save updated array to file
-        output_file = open('..\data\config.json', 'w')
+        output_file = open(file_path + '/../data/config.json', 'w')
         json.dump(apiKeys, output_file)
         output_file.close()
 
@@ -203,7 +207,7 @@ class APIKey(Resource):
             if result:
                 result['name'] = key_details['name']
                 result['key'] = key_details['key']
-                output_file = open('..\data\config.json', 'w')
+                output_file = open(file_path + '/../data/config.json', 'w')
                 json.dump(apiKeys, output_file)
                 output_file.close()
             # No key found
@@ -222,7 +226,7 @@ class APIKey(Resource):
             # Delete key
             if result:
                 apiKeys.remove(result)
-                output_file = open('..\data\config.json', 'w')
+                output_file = open(file_path + '/../data/config.json', 'w')
                 json.dump(apiKeys, output_file)
                 output_file.close()
             # No key found
@@ -234,7 +238,7 @@ class APIKey(Resource):
 class Locations(Resource):
     def get(self):
         return jsonify(locations)
-    
+
     def post(self):
         loc_details = request.get_json(force=True)
         # empty request
@@ -253,13 +257,13 @@ class Locations(Resource):
             new_location['name'] = loc_details['name']
             new_location['coverage'] = loc_details['coverage']
         # No location found
-        except: 
+        except:
             return {'message': 'Invalid location data provided'}, 400
         # Save new location
         locations.append(new_location)
-        
+
         # Save updated array to file
-        output_file = open('..\data\locations.json', 'w')
+        output_file = open(file_path + '/../data/locations.json', 'w')
         json.dump(locations, output_file)
         output_file.close()
 
@@ -288,7 +292,7 @@ class Location(Resource):
             if result:
                 result['name'] = location_details['name']
                 result['coverage'] = location_details['coverage']
-                output_file = open('..\data\locations.json', 'w')
+                output_file = open(file_path + '/../data/locations.json', 'w')
                 json.dump(locations, output_file)
                 output_file.close()
             # No location found
@@ -307,7 +311,7 @@ class Location(Resource):
             # Delete location
             if result:
                 locations.remove(result)
-                output_file = open('..\data\locations.json', 'w')
+                output_file = open(file_path + '/../data/locations.json', 'w')
                 json.dump(locations, output_file)
                 output_file.close()
             # No location found
@@ -319,7 +323,7 @@ class Location(Resource):
 class Requests(Resource):
     def get(self):
         return jsonify(requests)
-    
+
     def post(self):
         request_details = request.get_json(force=True)
         # empty request
@@ -340,13 +344,13 @@ class Requests(Resource):
             new_request['day'] = request_details['day']
             new_request['weight'] = request_details['weight']
         # No request found
-        except: 
+        except:
             return {'message': 'Invalid request data provided'}, 400
         # Save new request
         requests.append(new_request)
-        
+
         # Save updated array to file
-        output_file = open('..\data\\requests.json', 'w')
+        output_file = open(file_path + '/../data/requests.json', 'w')
         json.dump(requests, output_file)
         output_file.close()
 
@@ -377,7 +381,7 @@ class Request(Resource):
                 result['shift'] = request_details['shift']
                 result['day'] = request_details['day']
                 result['weight'] = request_details['weight']
-                output_file = open('..\data\\requests.json', 'w')
+                output_file = open(file_path + '/../data/requests.json', 'w')
                 json.dump(requests, output_file)
                 output_file.close()
             # No request found
@@ -396,7 +400,7 @@ class Request(Resource):
             # Delete request
             if result:
                 requests.remove(result)
-                output_file = open('..\data\\requests.json', 'w')
+                output_file = open(file_path + '/../data/requests.json', 'w')
                 json.dump(requests, output_file)
                 output_file.close()
             # No request found
@@ -410,7 +414,7 @@ class Request(Resource):
 def home():
     return '''<h1>John's Hopkins University Scheduler</h1>
 <p>A prototype API for CMSC447 Group 8 scheduler project.</p>'''
-    
+
 api.add_resource(EmployeeList, '/api/v1/employees')
 api.add_resource(Employee, '/api/v1/employees/<employee_id>')
 api.add_resource(APIKeys, '/api/v1/keys')

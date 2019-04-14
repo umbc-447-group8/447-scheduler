@@ -2,9 +2,10 @@
 CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 
 ## Dependencies
-* [Python3](https://www.python.org/downloads/)
+* [Python2](https://www.python.org/downloads/)
 * [pip](https://www.liquidweb.com/kb/install-pip-windows/)
 * Flask (`pip install flask`)
+* Flask (`pip install flask-restful`)
 * OR-Tools (`python -m pip install --user ortools`)
 
 ## Running the API server
@@ -12,13 +13,13 @@ CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 1. `cd api`
 1. `python api.py`
 1. Go to http://127.0.0.1:5000 to see homepage for the API
-1. Go to http://127.0.0.1:5000/api/v1/employees to see a list of all employees 
+1. Go to http://127.0.0.1:5000/api/v1/employees to see a list of all employees
 1. Go to http://127.0.0.1:5000/api/v1/employees/{EMPLOYEE_ID} to see single employee
-1. Go to http://127.0.0.1:5000/api/v1/keys to see a list of all keys 
+1. Go to http://127.0.0.1:5000/api/v1/keys to see a list of all keys
 1. Go to http://127.0.0.1:5000/api/v1/keys/{API_KEY_ID} to see single API key
-1. Go to http://127.0.0.1:5000/api/v1/locations to see a list of all locations 
+1. Go to http://127.0.0.1:5000/api/v1/locations to see a list of all locations
 1. Go to http://127.0.0.1:5000/api/v1/locations/{LOCATION_ID} to see single location
-1. Go to http://127.0.0.1:5000/api/v1/requests to see a list of all employee requests 
+1. Go to http://127.0.0.1:5000/api/v1/requests to see a list of all employee requests
 1. Go to http://127.0.0.1:5000/api/v1/requests/{REQUEST_ID} to see single request
 
 ### Supported API Methods:
