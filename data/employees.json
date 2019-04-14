@@ -1,0 +1,14 @@
+[
+    {
+        "employee_id": "DR001",
+        "id": 0,
+        "name": "Steven Straaaaaange",
+        "type": "Docto"
+    },
+    {
+        "employee_id": "PA002",
+        "id": 1,
+        "name": "Claire Temple",
+        "type": "PA"
+    }
+]
