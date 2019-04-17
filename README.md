@@ -6,6 +6,7 @@ CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 * [pip](https://www.liquidweb.com/kb/install-pip-windows/)
 * Flask (`pip install flask`)
 * Flask (`pip install flask-restful`)
+* Flask (`pip install flask-cors`)
 * OR-Tools (`python -m pip install --user ortools`)
 
 ## Running the API server
@@ -21,6 +22,13 @@ CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 1. Go to http://127.0.0.1:5000/api/v1/locations/{LOCATION_ID} to see single location
 1. Go to http://127.0.0.1:5000/api/v1/requests to see a list of all employee requests
 1. Go to http://127.0.0.1:5000/api/v1/requests/{REQUEST_ID} to see single request
+
+### Running the UI server
+* Ensure flas-cors is installed `pip install flask-cors`
+1. `cd ui`
+2. `python server.py` (This script can also be passed a custom IP and port)
+3. Ensure the API server is also running
+4. Navigate http://localhost:8000
 
 ### Supported API Methods:
 * `Get`

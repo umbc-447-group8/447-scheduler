@@ -1,0 +1,73 @@
+<div class="heading">
+  <h1>Add Employee</h1>
+</div>
+<div class="divider"></div>
+<div class="content">
+  <div class="row">
+  <form id="add_employee_form" class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="first_name" type="text">
+        <label for="first_name">First Name</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="last_name" type="text">
+        <label for="last_name">Last Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+         <input id="employee_id" type="text">
+         <label for="employee_id">Employee ID</label>
+     </div>
+      <div class="input-field col s6">
+         <select id="employee_type">
+           <option value="" disabled selected>Choose your option</option>
+           <option value="Doctor">Doctor</option>
+           <option value="PA">PA</option>
+         </select>
+       <label>Employee Type</label>
+     </div>
+   </div>
+   <div class="row">
+     <div class="input-field col s6">
+       <select id="moonlighter">
+         <option value="no" selected>Not Moonlighter</option>
+         <option value="yes">Moonglighter</option>
+       </select>
+     <label>Moonlighter?</label>
+    </div>
+   </div>
+  </form>
+  <button onclick="post_employee()" class ="btn waves-effect waves-light">Submit</button>
+  </div>
+</div>
+
+<script>
+
+  //Get the value of the select box
+  function post_employee() {
+    var employee_type = $("#employee_type").val();
+    var first_name = $("#first_name").val();
+    var last_name = $("#last_name").val();
+    var employee_id = $("#employee_id").val();
+    var moonlighter = $("#moonlighter").val();
+
+    axios.post(apiPath + '/employees', {
+        employee_id: employee_id,
+        name: first_name + " " + last_name,
+        type: employee_type,
+      })
+      .then(function (response) {
+        document.getElementById("add_employee_form").reset();
+        M.toast({html: first_name + " " + last_name + " has been added"})
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems);
+
+</script>

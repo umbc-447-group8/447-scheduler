@@ -1,15 +1,18 @@
 import flask
-from flask import request, jsonify, Flask
+from flask import request, jsonify, Flask, render_template, current_app
 from flask_restful import reqparse, abort, Api, Resource
+from flask_cors import CORS
 import json
 import os
 
-app = Flask(__name__)
+#get the current working directory
+file_path = os.path.dirname(os.path.abspath(__file__))
+
+app = Flask(__name__, template_folder= file_path + "/../ui/views")
+CORS(app)
 api = Api(app)
 app.config["DEBUG"] = True
 
-#get the current working directory
-file_path = os.path.dirname(os.path.abspath(__file__))
 
 # Get APIKeys and store into array
 input_file = open(file_path + '/../data/config.json', 'r')
@@ -410,11 +413,6 @@ class Request(Resource):
             return {'message': 'Invalid request data provided'}, 400
 
 # Homepage
-@app.route('/', methods=['GET'])
-def home():
-    return '''<h1>John's Hopkins University Scheduler</h1>
-<p>A prototype API for CMSC447 Group 8 scheduler project.</p>'''
-
 api.add_resource(EmployeeList, '/api/v1/employees')
 api.add_resource(Employee, '/api/v1/employees/<employee_id>')
 api.add_resource(APIKeys, '/api/v1/keys')

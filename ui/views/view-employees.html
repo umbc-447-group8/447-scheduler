@@ -1,0 +1,173 @@
+<div class="heading">
+  <h1>Employees</h1>
+</div>
+<div class="divider"></div>
+<div class="content">
+
+  <table id="employee_table" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Employee ID</th>
+                <th>Employee Type</th>
+                <th>Moonlighter</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<!-- Edit Employee Modal -->
+<div id="edit_employee_modal" style="padding: 2em;" class="modal">
+  <h2>Edit Employee</h2>
+  <div class="divider"></div>
+  <div class="row" style="padding-top:2em;">
+  <form id="apu_employee_form" style="padding: 2em" class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="first_name_put" type="text">
+        <label for="first_name_put">First Name</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="last_name_put" type="text">
+        <label for="last_name_put">Last Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+         <input disabled id="employee_id_put" type="text">
+         <label for="employee_id_put">Employee ID</label>
+     </div>
+      <div class="input-field col s6">
+         <select id="employee_type_put">
+           <option value="" disabled selected>Choose your option</option>
+           <option value="Doctor">Doctor</option>
+           <option value="PA">PA</option>
+         </select>
+       <label>Employee Type</label>
+     </div>
+   </div>
+   <div class="row">
+     <div class="input-field col s6">
+       <select id="moonlighter_put">
+         <option value="no" selected>Not Moonlighter</option>
+         <option value="yes">Moonglighter</option>
+       </select>
+     <label>Moonlighter?</label>
+    </div>
+   </div>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <button onclick="put_employee()" class ="btn waves-effect waves-light">Submit</button>
+    <a class="modal-close waves-effect waves-green btn-flat">Exit</a>
+  </div>
+</div>
+<!-- End edit modal -->
+
+<!-- Delete Employee Modal -->
+<div id="delete_employee_modal" class="modal">
+  <div class="modal-content">
+    <h4>Are you sure you want to delete employee <span id="employee_id_delete"></span> ?</h4>
+  </div>
+  <div class="modal-footer">
+    <button onclick="delete_employee()" class ="btn waves-effect waves-light">Delete</button>
+    <a class="modal-close waves-effect waves-green btn-flat">Exit</a>
+  </div>
+</div>
+
+<!-- Delete Request Modal -->
+<div id="delete_request_modal" class="modal">
+  <div class="modal-content">
+    <h4>Are you sure you want to delete request <span id="request_employee_id_delete"></span> ?</h4>
+  </div>
+  <div class="modal-footer">
+    <button onclick="delete_request()" class ="btn waves-effect waves-light">Delete</button>
+    <a class="modal-close waves-effect waves-green btn-flat">Exit</a>
+  </div>
+</div>
+
+<script src="../scripts/view-employees.js" charset="utf-8"></script>
+<!-- end delete modal -->
+
+<!-- Add Request Modal -->
+<div id="add_request_modal" style="padding: 2em; padding-bottom: 10em;" class="modal">
+  <h2>Add Request</h2>
+  <div class="divider"></div>
+  <div class="row" style="padding-top:2em;">
+    <form id="add_request_form" class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input disabled id="employee_id_request" type="text">
+          <label for="employee_id_request">Employee ID</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="weight_request" type="number" name="quantity" min="-5" max="5">
+          <label for="weight_request">Weight [-5, 5]</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="request_date_request" type="text" class="datepicker">
+          <label for="request_date_request">Request Date</label>
+        </div>
+        <div class="input-field col s6">
+          <select id="shift_request">
+            <option value="" selected disabled>Select Shift</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          <label for="shift">Shift</label>
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button onclick="post_request()" class ="btn waves-effect waves-light">Submit</button>
+      <a class="modal-close waves-effect waves-green btn-flat">Exit</a>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Request Modal -->
+<div id="edit_request_modal" style="padding: 2em; padding-bottom: 10em;" class="modal">
+  <h2>Edit Request: <span id="edit_request_id"></span></h2>
+  <div class="divider"></div>
+  <div class="row" style="padding-top:2em;">
+    <form id="add_request_form" class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input disabled id="employee_id_request_edit" type="text">
+          <label for="employee_id_request_edit">Employee ID</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="weight_request_edit" type="number" name="quantity" min="-5" max="5">
+          <label for="weight_request_edit">Weight [-5, 5]</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="date_request_edit" type="text" class="datepicker">
+          <label for="date_request_edit">Request Date</label>
+        </div>
+        <div class="input-field col s6">
+          <select id="shift_request_edit">
+            <option value="" selected disabled>Select Shift</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+          <label for="shift">Shift</label>
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button onclick="put_request()" class ="btn waves-effect waves-light">Submit</button>
+      <a class="modal-close waves-effect waves-green btn-flat">Exit</a>
+    </div>
+  </div>
+</div>
