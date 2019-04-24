@@ -43,14 +43,18 @@ CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
   {
     "employee_id": "DR001",
     "id": 0,
-    "name": "Steven Strange",
-    "type": "Doctor"
+    "firstName": "Steven",
+    "firstName": "Strange",
+    "type": "Doctor",
+    "moonlighter": true
   },
   {
     "employee_id": "PA002",
     "id": 1,
-    "name": "Claire Temple",
-    "type": "PA"
+    "firstName": "Claire",
+    "firstName": "Temple",
+    "type": "PA",
+    "moonlighter": false
   }
 ]
 ```
