@@ -31,11 +31,13 @@ input_file = open(file_path + '/../data/employees.json', 'r')
 json_array = json.load(input_file)
 employees = []
 for item in json_array:
-    employee_details = {"id":None, "name":None, "employee_id":None, "type":None}
+    employee_details = {"id":None, "firstName":None, "lastName":None, "employee_id":None, "type":None, "moonlighter":None}
     employee_details['id'] = item['id']
-    employee_details['name'] = item['name']
+    employee_details['firstName'] = item['firstName']
+    employee_details['lastName'] = item['lastName']
     employee_details['employee_id'] = item['employee_id']
     employee_details['type'] = item['type']
+    employee_details['moonlighter'] = item['moonlighter']
     employees.append(employee_details)
 input_file.close()
 
@@ -86,9 +88,11 @@ class EmployeeList(Resource):
             # Parse request body and put into a new employee
             new_employee = {"id":None, "name":None, "employee_id":None, "type":None}
             new_employee['id'] = emp_id
-            new_employee['name'] = employee_details['name']
+            new_employee['firstName'] = employee_details['firstName']
+            new_employee['lastName'] = employee_details['lastName']
             new_employee['employee_id'] = employee_details['employee_id']
             new_employee['type'] = employee_details['type']
+            new_employee['moonlighter'] = employee_details['moonlighter']
         except:
             return {'message': 'Invalid employee data provided'}, 400
         # Save new employee
@@ -123,8 +127,10 @@ class Employee(Resource):
                     result = employee
             # Update employee
             if result:
-                result['name'] = employee_details['name']
+                result['firstName'] = employee_details['firstName']
+                result['lastName'] = employee_details['lastName']
                 result['type'] = employee_details['type']
+                result['moonlighter'] = employee_details['moonlighter']
                 output_file = open(file_path + '/../data/employees.json', 'w')
                 json.dump(employees, output_file)
                 output_file.close()
