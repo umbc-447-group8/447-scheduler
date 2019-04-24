@@ -195,7 +195,7 @@ class APIKey(Resource):
     def get(self, api_key_id):
         result = None
         for key in apiKeys:
-            if key['id'] == api_key_id:
+            if key['id'] == int(api_key_id):
                 result = key
             if result:
                 return jsonify(result)
@@ -210,7 +210,7 @@ class APIKey(Resource):
         try:
             # Find key to update
             for key in apiKeys:
-                if key['id'] == api_key_id:
+                if key['id'] == int(api_key_id):
                     result = key
             # Update key
             if result:
@@ -230,7 +230,7 @@ class APIKey(Resource):
         try:
             # Find key to delete
             for key in apiKeys:
-                if key['id'] == api_key_id:
+                if key['id'] == int(api_key_id):
                     result = key
             # Delete key
             if result:
@@ -280,7 +280,7 @@ class Location(Resource):
     def get(self, location_id):
         result = None
         for location in locations:
-            if location['id'] == location_id:
+            if location['id'] == int(location_id):
                 result = location
             if result:
                 return jsonify(result)
@@ -295,7 +295,7 @@ class Location(Resource):
         try:
             # Find location to update
             for location in locations:
-                if location['id'] == location_id:
+                if location['id'] == int(location_id):
                     result = location
             # Update location
             if result:
@@ -315,7 +315,7 @@ class Location(Resource):
         try:
             # Find location to delete
             for location in locations:
-                if location['id'] == location_id:
+                if location['id'] == int(location_id):
                     result = location
             # Delete location
             if result:
@@ -367,12 +367,12 @@ class Request(Resource):
     def get(self, request_id):
         result = None
         for req in requests:
-            if req['request_id'] == request_id:
+            if req['request_id'] == int(request_id):
                 result = req
-            if result:
-                return jsonify(result)
-            else:
-                return "Error: No requests found with that request_id. Please enter a valid request_id.", 404
+        if result:
+            return jsonify(result)
+        else:
+            return "Error: No requests found with that request_id. Please enter a valid request_id.", 404
     def put(self, request_id):
         request_details = request.get_json(force=True)
         # Empty request
@@ -382,7 +382,7 @@ class Request(Resource):
         try:
             # Find request to update
             for req in requests:
-                if req['request_id'] == request_id:
+                if req['request_id'] == int(request_id):
                     result = req
             # Update request
             if result:
@@ -404,7 +404,7 @@ class Request(Resource):
         try:
             # Find request to delete
             for req in requests:
-                if req['request_id'] == request_id:
+                if req['request_id'] == int(request_id):
                     result = req
             # Delete request
             if result:
