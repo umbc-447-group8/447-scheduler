@@ -1,5 +1,6 @@
 # scheduler_config.py
 # File that stores configurations for generating the schedule. Imported into scheduler.py.
+# This will be generated based on configurations made in the UI. Some of these are just examples for now.
 
 num_employees = 8
 num_weeks = 2
@@ -20,7 +21,7 @@ shift_constraints = [
 #     (shift, hard_min, soft_min, min_penalty,
 #             soft_max, hard_max, max_penalty)
 weekly_sum_constraints = [
-    # Constraints on rests per week.
+    # Constraints on rests per week. At least 1 rest per week. At most 3 rests per week.
     (0, 1, 2, 7, 2, 3, 4),
     # # At least 1 night shift per week (penalized). At most 4 (hard).
     # (3, 0, 1, 3, 4, 4, 0),
@@ -39,8 +40,8 @@ penalized_transitions = [
     (3, 1, 0),
 ]
 
-# daily demands for work shifts (morning, afternon, night) for each day
-# of the week starting on Monday.
+# Daily demands for work shifts (morning, afternon, night) for each day
+#   of the week starting on Monday.
 weekly_cover_demands = [
     (1, 1, 1),  # Monday
     (1, 1, 1),  # Tuesday
