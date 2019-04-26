@@ -31,11 +31,13 @@ input_file = open(file_path + '/../data/employees.json', 'r')
 json_array = json.load(input_file)
 employees = []
 for item in json_array:
-    employee_details = {"id":None, "name":None, "employee_id":None, "type":None}
+    employee_details = {"id":None, "firstName":None, "lastName":None, "employee_id":None, "type":None, "moonlighter":None}
     employee_details['id'] = item['id']
-    employee_details['name'] = item['name']
+    employee_details['firstName'] = item['firstName']
+    employee_details['lastName'] = item['lastName']
     employee_details['employee_id'] = item['employee_id']
     employee_details['type'] = item['type']
+    employee_details['moonlighter'] = item['moonlighter']
     employees.append(employee_details)
 input_file.close()
 
@@ -86,9 +88,11 @@ class EmployeeList(Resource):
             # Parse request body and put into a new employee
             new_employee = {"id":None, "name":None, "employee_id":None, "type":None}
             new_employee['id'] = emp_id
-            new_employee['name'] = employee_details['name']
+            new_employee['firstName'] = employee_details['firstName']
+            new_employee['lastName'] = employee_details['lastName']
             new_employee['employee_id'] = employee_details['employee_id']
             new_employee['type'] = employee_details['type']
+            new_employee['moonlighter'] = employee_details['moonlighter']
         except:
             return {'message': 'Invalid employee data provided'}, 400
         # Save new employee
@@ -123,8 +127,10 @@ class Employee(Resource):
                     result = employee
             # Update employee
             if result:
-                result['name'] = employee_details['name']
+                result['firstName'] = employee_details['firstName']
+                result['lastName'] = employee_details['lastName']
                 result['type'] = employee_details['type']
+                result['moonlighter'] = employee_details['moonlighter']
                 output_file = open(file_path + '/../data/employees.json', 'w')
                 json.dump(employees, output_file)
                 output_file.close()
@@ -189,7 +195,7 @@ class APIKey(Resource):
     def get(self, api_key_id):
         result = None
         for key in apiKeys:
-            if key['id'] == api_key_id:
+            if key['id'] == int(api_key_id):
                 result = key
             if result:
                 return jsonify(result)
@@ -204,7 +210,7 @@ class APIKey(Resource):
         try:
             # Find key to update
             for key in apiKeys:
-                if key['id'] == api_key_id:
+                if key['id'] == int(api_key_id):
                     result = key
             # Update key
             if result:
@@ -224,7 +230,7 @@ class APIKey(Resource):
         try:
             # Find key to delete
             for key in apiKeys:
-                if key['id'] == api_key_id:
+                if key['id'] == int(api_key_id):
                     result = key
             # Delete key
             if result:
@@ -274,7 +280,7 @@ class Location(Resource):
     def get(self, location_id):
         result = None
         for location in locations:
-            if location['id'] == location_id:
+            if location['id'] == int(location_id):
                 result = location
             if result:
                 return jsonify(result)
@@ -289,7 +295,7 @@ class Location(Resource):
         try:
             # Find location to update
             for location in locations:
-                if location['id'] == location_id:
+                if location['id'] == int(location_id):
                     result = location
             # Update location
             if result:
@@ -309,7 +315,7 @@ class Location(Resource):
         try:
             # Find location to delete
             for location in locations:
-                if location['id'] == location_id:
+                if location['id'] == int(location_id):
                     result = location
             # Delete location
             if result:
@@ -361,12 +367,12 @@ class Request(Resource):
     def get(self, request_id):
         result = None
         for req in requests:
-            if req['request_id'] == request_id:
+            if req['request_id'] == int(request_id):
                 result = req
-            if result:
-                return jsonify(result)
-            else:
-                return "Error: No requests found with that request_id. Please enter a valid request_id.", 404
+        if result:
+            return jsonify(result)
+        else:
+            return "Error: No requests found with that request_id. Please enter a valid request_id.", 404
     def put(self, request_id):
         request_details = request.get_json(force=True)
         # Empty request
@@ -376,7 +382,7 @@ class Request(Resource):
         try:
             # Find request to update
             for req in requests:
-                if req['request_id'] == request_id:
+                if req['request_id'] == int(request_id):
                     result = req
             # Update request
             if result:
@@ -398,7 +404,7 @@ class Request(Resource):
         try:
             # Find request to delete
             for req in requests:
-                if req['request_id'] == request_id:
+                if req['request_id'] == int(request_id):
                     result = req
             # Delete request
             if result:
