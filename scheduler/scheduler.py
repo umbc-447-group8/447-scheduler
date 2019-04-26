@@ -19,7 +19,8 @@ import argparse
 import datetime
 
 # Scheduler configurations
-import scheduler_config
+import scheduler_config_doctor
+import scheduler_config_pa
 
 from ortools.sat.python import cp_model
 from google.protobuf import text_format
@@ -36,6 +37,7 @@ PARSER.add_argument(
     help='Output file to write the cp_model'
     'proto to.')
 PARSER.add_argument('--params', default="", help='Sat solver parameters.')
+PARSER.add_argument('--type_of', default="", help='Type of schedule')
 
 now = datetime.datetime.now()
 
@@ -155,7 +157,7 @@ def solve_shift_scheduling(params, output_proto, num_employees, num_weeks, shift
         text_format.Merge(params, solver.parameters)
     solution_printer = cp_model.ObjectiveSolutionPrinter()
     status = solver.SolveWithSolutionCallback(model, solution_printer)
-
+    shifts[s]
     # Print solution.
     if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
         print()
@@ -236,14 +238,25 @@ def main(args):
     ]
     
     # Data from ./scheduler_config.py
-    num_employees = scheduler_config.num_employees
-    num_weeks = scheduler_config.num_weeks
-    shifts = scheduler_config.shifts
-    shift_constraints = scheduler_config.shift_constraints
-    weekly_sum_constraints = scheduler_config.weekly_sum_constraints
-    penalized_transitions = scheduler_config.penalized_transitions
-    weekly_cover_demands = scheduler_config.weekly_cover_demands
-    excess_cover_penalties = scheduler_config.excess_cover_penalties
+    if args.type_of == "doctor":
+    	num_employees = scheduler_config_doctor.num_employees
+   		num_weeks = scheduler_config_doctor.num_weeks
+    	shifts = scheduler_config_doctor.shifts
+    	shift_constraints = scheduler_config_doctor.shift_constraints
+    	weekly_sum_constraints = scheduler_config_doctor.weekly_sum_constraints
+    	penalized_transitions = scheduler_config_doctor.penalized_transitions
+    	weekly_cover_demands = scheduler_config_doctor.weekly_cover_demands
+    	excess_cover_penalties = scheduler_config_doctor.excess_cover_penalties
+    
+    else if args.type_of == "pa":
+	    num_employees = scheduler_config_pa.num_employees
+    	num_weeks = scheduler_config_pa.num_weeks
+    	shifts = scheduler_config_pa.shifts
+    	shift_constraints = scheduler_config_pa.shift_constraints
+    	weekly_sum_constraints = scheduler_config_pa.weekly_sum_constraints
+    	penalized_transitions = scheduler_config_pa.penalized_transitions
+    	weekly_cover_demands = scheduler_config_pa.weekly_cover_demands
+    	excess_cover_penalties = scheduler_config_pa.excess_cover_penalties
 
     # Solve with requests and config
     solve_shift_scheduling(args.params, args.output_proto, num_employees, num_weeks, shifts, fixed_assignments, requests, shift_constraints,
