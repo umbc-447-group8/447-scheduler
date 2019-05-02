@@ -24,7 +24,7 @@ def setShifts(numShifts):
         shiftsArray = ['O']
         for i in range(numShifts):
            shiftsArray.append(str(i+1))
-        #scheduler_config.shifts = shiftsArray
+        scheduler_config.shifts = shiftsArray
 
         # Create new penalized_transitions array in scheduler_config        
         penTransitions = []
@@ -33,6 +33,17 @@ def setShifts(numShifts):
                 if i != k:
                     penTransitions.append((i, k, 0))
         penTransitions.append((numShifts, 1, 0))
-        #scheduler_config.penalized_transitions = penTransitions
+        scheduler_config.penalized_transitions = penTransitions
+
+def setWeeks(numWeeks):
+    scheduler_config.num_weeks = numWeeks
+
+def setEmps(numEmp):
+    scheduler_config.num_employees = numEmp
         
-setShifts(numShifts)
+if numShifts:
+    setShifts(numShifts)
+if numWeeks:
+    setWeeks(numWeeks)
+if numEmp:
+    setEmps(numEmp)
