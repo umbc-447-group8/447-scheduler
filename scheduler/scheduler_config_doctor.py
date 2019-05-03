@@ -1,7 +1,16 @@
 # scheduler_config.py
 # File that stores configurations for generating the schedule. Imported into scheduler.py.
 #-N = Nursery location
-num_employees = 8
+def __init__(self):
+        resp = request.get('http://127.0.0.1:5000/api/v1/employees')
+        if resp.status_code != 200:
+            # This means something went wrong.
+            raise ApiError('GET /tasks/ {}'.format(resp.status_code))
+        counter = 0
+        for eOb in resp.json():
+            counter += 1
+        self.num_employees = counter
+        
 num_weeks = 13 #assuming quarterly
 shifts = ['O', 'M-ER', 'A-ER', 'N-ER', 'M-N', 'A-N']
 

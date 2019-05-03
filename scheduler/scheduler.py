@@ -17,6 +17,8 @@ from __future__ import print_function
 
 import argparse
 import datetime
+import requests
+
 
 # Scheduler configurations
 import scheduler_config_doctor
@@ -239,6 +241,7 @@ def main(args):
     
     # Data from ./scheduler_config.py
     if args.type_of == "doctor":
+    	doctorOb = config_doctor()
     	num_employees = scheduler_config_doctor.num_employees
    		num_weeks = scheduler_config_doctor.num_weeks
     	shifts = scheduler_config_doctor.shifts
@@ -249,6 +252,7 @@ def main(args):
     	excess_cover_penalties = scheduler_config_doctor.excess_cover_penalties
     
     else if args.type_of == "pa":
+	    paOb = config_doctor()
 	    num_employees = scheduler_config_pa.num_employees
     	num_weeks = scheduler_config_pa.num_weeks
     	shifts = scheduler_config_pa.shifts

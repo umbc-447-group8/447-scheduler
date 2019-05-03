@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+import scheduler
 import flask
 from flask import request, jsonify, Flask
 from flask_restful import reqparse, abort, Api, Resource
@@ -47,3 +49,5 @@ def home():
 api.add_resource(EmployeeList, '/api/v1/employees')
 api.add_resource(Employee, '/api/v1/employees/<employee_id>')
 app.run()
+
+scheduler.main()
