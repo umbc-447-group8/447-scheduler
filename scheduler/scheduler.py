@@ -21,6 +21,8 @@ from __future__ import print_function
 
 import argparse
 import datetime
+import os
+import json
 
 # Scheduler configurations
 import scheduler_config
@@ -37,6 +39,19 @@ from google.protobuf import text_format
 from scheduler_functions import negated_bounded_span
 from scheduler_functions import add_soft_sequence_constraint
 from scheduler_functions import add_soft_sum_constraint
+
+# Require DB
+file_path = os.path.dirname(os.path.abspath(__file__))
+input_file = open(file_path + '/../data/requests.json', 'r')
+requests_array = json.load(input_file)
+input_file = open(file_path + '/../data/employees.json', 'r')
+employees_array = json.load(input_file)
+#requests_array = open(file_path + '/../data/requests.json', 'r')
+
+# Translate Employees
+employees = []
+for i in employees_array:
+    employees.append(i['employee_id'])
 
 # Object that parses arguments possibly passed into the script when run. Ideally, there will be no use of this.
 PARSER = argparse.ArgumentParser()
@@ -84,8 +99,11 @@ def solve_shift_scheduling(params, output_proto, num_employees, num_weeks, shift
 
     # Parses employee requests to pass into the solver.
     for e, s, d, w in requests:
-        obj_bool_vars.append(work[e, s, d])
-        obj_bool_coeffs.append(w)
+        try:
+            obj_bool_vars.append(work[e, s, d])
+            obj_bool_coeffs.append(w)
+        except:
+            continue
 
     # Takes in the shift constraints and parses them. To be passed into the solver. 
     for ct in shift_constraints:
@@ -215,6 +233,7 @@ def main(args):
     # Fixed assignment: (employee, shift, day).
     # This fixes the first 2 days of the schedule. Below is just an example.
     # TODO: Generate fixed assignments from the DB.
+    
     fixed_assignments = [
         (0, 0, 0),
         (1, 0, 0),
@@ -240,15 +259,22 @@ def main(args):
     
     # Request: (employee, shift, day, weight)
     # A negative weight indicates that the employee desire this assignment. Below is just an example.
-    # TODO: Generate requests from the DB.
-    requests = [
-        # Employee 3 wants the first Saturday off.
-        (3, 0, 5, -2),
-        # Employee 5 wants a night shift on the second Thursday.
-        (5, 3, 10, -2),
-        # Employee 2 does not want a night shift on the third Friday.
-        (2, 3, 4, 4)
-    ]
+    requests = []
+    print(employees)
+    for item in requests_array:
+        index = employees.index(str(item['employee_id']))
+        req_details = (index, item['shift'], item['day'], item['weight'])
+        print(req_details)
+        requests.append(req_details)
+    
+    # requests = [
+    #     # Employee 3 wants the first Saturday off.
+    #     (3, 0, 5, -2),
+    #     # Employee 5 wants a night shift on the second Thursday.
+    #     (5, 3, 10, -2),
+    #     # Employee 2 does not want a night shift on the third Friday.
+    #     (2, 3, 4, 4)
+    # ]
     
     # Data from ./scheduler_config.py
     num_employees = scheduler_config.num_employees
