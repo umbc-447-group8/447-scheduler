@@ -34,9 +34,10 @@ CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 ### Running the UI server
 * Ensure flas-cors is installed `pip install flask-cors`
 1. `cd ui`
-2. `python server.py` (This script can also be passed a custom IP and port)
-3. Ensure the API server is also running
-4. Navigate http://localhost:8000
+2. **python2**: `python server.py` (This script can also be passed a custom IP and port)
+3. **python3** `python -m http.server`
+4. Ensure the API server is also running
+5. Navigate http://localhost:8000
 
 ### Supported API Methods:
 * `Get`

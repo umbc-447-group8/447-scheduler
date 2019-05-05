@@ -15,11 +15,11 @@ var table = $('#employee_table').DataTable( {
             "data":           null,
             "defaultContent": '<button class="expand_button btn-small btn-floating waves-effect waves-light blue"><i class="material-icons">expand_more</i></button>'
         },
-        { "data": "name" },
-        { "data": "name" },
+        { "data": "firstName" },
+        { "data": "lastName" },
         { "data": "employee_id" },
         { "data": "type" },
-        { data: null },
+        { "data": "moonlighter" },
         {
           data: null,
           render: function ( data, type, row ) {
@@ -105,8 +105,8 @@ $('#employee_table tbody').on('click', '.expand_button', function () {
 $('#employee_table tbody').on('click', '.edit_button', function() {
   var data = table.row($(this).parents('tr')).data();
 
-  document.getElementById('first_name_put').value = data['name'];
-  document.getElementById('last_name_put').value = data['name'];
+  document.getElementById('first_name_put').value = data['firstName'];
+  document.getElementById('last_name_put').value = data['lastName'];
   document.getElementById('employee_id_put').value = data['employee_id'];
   document.getElementById('employee_type_put').value = data['type'];
 
@@ -167,11 +167,19 @@ function put_employee() {
   var last_name = $("#last_name_put").val();
   var employee_id = $("#employee_id_put").val();
   var moonlighter = $("#moonlighter_put").val();
+  if(moonlighter == 'false'){
+    moonlighter = false;
+  }
+  else{
+    moonlighter = true;
+  }
   // Make API call
   axios.put(apiPath + '/employees/' + employee_id, {
       employee_id: employee_id,
-      name: first_name + " " + last_name,
+      firstName: first_name,
+      lastName: last_name,
       type: employee_type,
+      moonlighter: moonlighter,
     })
     .then(function (response) {
       console.log(response);
