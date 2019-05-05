@@ -9,6 +9,14 @@ CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 * Flask (`pip install flask-cors`)
 * OR-Tools (`python -m pip install --user ortools`)
 
+## Installation
+1. Clone the repo.
+1. Open the repo in your file explorer.
+1. Double-click the `install` folder.
+1. Double-click the `install.bat` file.
+1. If a User Account Control window open asking if you would like to allow Python to make changes to your computer, select `yes`.
+1. Wait for the terminal to close.
+
 ## Running the API server
 1. Clone the repo
 1. `cd api`
