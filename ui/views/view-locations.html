@@ -7,7 +7,6 @@
   <table id="location_table" class="display" style="width:100%">
         <thead>
             <tr>
-                <th></th>
                 <th>Name</th>
                 <th>Monday</th>
                 <th>Tuesday</th>
@@ -32,8 +31,8 @@
   <form id="apu_location_form" style="padding: 2em" class="col s12">
     <div class="row">
       <div class="input-field col s6">
-        <input id="first_name" type="text" pattern="[A-Za-z]+" class="validate" required>
-        <label for="first_name">Location Name</label>
+        <input id="name_put" type="text" class="validate" required>
+        <label for="name_put">Location Name</label>
       </div>
     </div>
     <div>
@@ -83,6 +82,9 @@
           <input type="checkbox" style="opacity: 100; position: relative; pointer-events: all" id="sun_shift3"> <label for="sun_shift3">  Shift 3  </label>
           Sunday
         </div>
+        <div class="row">
+          <input type="checkbox" style="opacity: 100; position: relative; pointer-events: all" id="select_all" onclick="selectall(this)"> <label for="select_all">  Select all </label>
+        </div>
       </div>
     </div>
   </form>
@@ -104,6 +106,16 @@
     <a class="modal-close waves-effect waves-green btn-flat">Exit</a>
   </div>
 </div>
+
+<script>
+  function selectall(source) {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i] != source)
+        checkboxes[i].checked = source.checked;
+    }
+  }
+</script>
 
 <script src="../scripts/view-locations.js" charset="utf-8"></script>
 <!-- end delete modal -->

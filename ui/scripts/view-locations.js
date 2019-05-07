@@ -2,6 +2,7 @@ $('.modal').modal();
 var locations_path = apiPath + "/locations";
 console.log(locations_path);
 
+
 //Initialize the table that displays the locations
 var table = $('#location_table').DataTable( {
   ajax: {
@@ -12,30 +13,46 @@ var table = $('#location_table').DataTable( {
         {
             "className":      'details-control',
             "orderable":      false,
-            "data":           null,
-            "defaultContent": '<button class="expand_button btn-small btn-floating waves-effect waves-light blue"><i class="material-icons">expand_more</i></button>'
+            "data": "name"
         },
-        { "data": "name" },
-        { "data": "name" },
-        { "data": "employee_id" },
-        { "data": "type" },
-        { data: null },
+        { data:function (data, type, row) {
+                return data.coverage[0][0] + data.coverage[0][1] + data.coverage[0][2];
+            }
+        },
+        { data:function (data, type, row) {
+                return data.coverage[1][0] + data.coverage[1][1] + data.coverage[1][2];
+            }
+        },
+        { data:function (data, type, row) {
+                return data.coverage[2][0] + data.coverage[2][1] + data.coverage[2][2];
+            }
+        },
+        { data:function (data, type, row) {
+                return data.coverage[3][0] + data.coverage[3][1] + data.coverage[3][2];
+            }
+        },
+        { data:function (data, type, row) {
+                return data.coverage[4][0] + data.coverage[4][1] + data.coverage[4][2];
+            }
+        },
+        { data:function (data, type, row) {
+                return data.coverage[5][0] + data.coverage[5][1] + data.coverage[5][2];
+            }
+        },
+        { data:function (data, type, row) {
+                return data.coverage[6][0] + data.coverage[6][1] + data.coverage[6][2];
+            }
+        },
         {
           data: null,
           render: function ( data, type, row ) {
-            return '<button data-target="add_request_modal" data-position="top" data-tooltip="Add Request" class="modal-trigger tooltipped modal-trigger add_request_button btn waves-effect waves-light"><i class="material-icons">add</i></button>';
+            return '<button data-target="edit_location_modal" data-position="top" data-tooltip="Edit Location" class="tooltipped modal-trigger edit_button btn waves-effect waves-light"><i class="material-icons">edit</i></button>';
           },
         },
         {
           data: null,
           render: function ( data, type, row ) {
-            return '<button data-target="edit_employee_modal" data-position="top" data-tooltip="Edit Employee" class="tooltipped modal-trigger edit_button btn waves-effect waves-light"><i class="material-icons">edit</i></button>';
-          },
-        },
-        {
-          data: null,
-          render: function ( data, type, row ) {
-            return '<button data-target="delete_employee_modal" data-position="top" data-tooltip="Delete Employee" class="tooltipped red modal-trigger delete_button btn waves-effect waves-light"><i class="material-icons">delete_forever</i></button>';
+            return '<button data-target="delete_location_modal" data-position="top" data-tooltip="Delete Location" class="tooltipped red modal-trigger delete_button btn waves-effect waves-light"><i class="material-icons">delete_forever</i></button>';
           },
         },
     ],
@@ -50,65 +67,44 @@ var table = $('#location_table').DataTable( {
 } );
 // End table initalization
 
-//Event listener for expand
-$('#employee_table tbody').on('click', '.expand_button', function () {
-    var tr = $(this).closest('tr');
-    var row = table.row( tr );
-
-    if ( row.child.isShown() ) {
-        // This row is already open - close it
-        row.child.hide();
-        tr.removeClass('shown');
-    }
-    else {
-        // Open this row
-        // Build the table dynamically based off the requests
-        axios.get(apiPath + '/requests')
-          .then(function (response) {
-            request_rows = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-                '<th>Request ID</th>'+
-                '<th>Employee Id</th>'+
-                '<th>Reqest Day</th>'+
-                '<th>Shift</th>'+
-                '<th>Weight</th>'+
-                '<th>Edit</th>'+
-                '<th>Delete</th>'
-            // For each response, if response corresponds to current employee,
-            // add row.
-            response['data'].forEach(function(request) {
-              if(request['employee_id'] == row.data()['employee_id']){
-                request_rows += '<tr>'+
-                                  '<td>'+request['request_id']+'</td>'+
-                                  '<td>'+request['employee_id']+'</td>'+
-                                  '<td>'+request['day']+'</td>'+
-                                  '<td>'+request['shift']+'</td>'+
-                                  '<td>'+request['weight']+'</td>'+
-                                  '<td><button data-target="edit_request_modal" data-position="top" data-tooltip="Edit Request" class="edit_request_button blue btn-small tooltipped modal-trigger edit_request_button btn waves-effect waves-light"><i class="material-icons">edit</i></button></td>'+
-                                  '<td><button data-target="delete_request_modal" data-position="top" data-tooltip="Delete Request" class="delete_request_button btn-small red tooltipped modal-trigger edit_request_button btn waves-effect waves-light"><i class="material-icons">delete_forever</i></button></td></td>'+
-                                '</tr>'
-              }
-            });
-            request_rows += '</table>';
-            row.child( request_rows ).show();
-            tr.addClass('shown');
-          })
-          .catch(function (error) {
-            // handle error
-            console.log(error);
-          })
-    }
-});
 
 // xxx modal initizing
 
-// Initialize the edit epmloyee modal
-$('#employee_table tbody').on('click', '.edit_button', function() {
+// Initialize the edit location modal
+$('#location_table tbody').on('click', '.edit_button', function() {
   var data = table.row($(this).parents('tr')).data();
 
-  document.getElementById('first_name_put').value = data['name'];
-  document.getElementById('last_name_put').value = data['name'];
-  document.getElementById('employee_id_put').value = data['employee_id'];
-  document.getElementById('employee_type_put').value = data['type'];
+  document.getElementById('name_put').value = data['name'];
+  var coverage = data['coverage'];
+  document.getElementById('mon_shift1').checked = coverage[0][0];
+  document.getElementById('mon_shift2').checked = coverage[0][1];
+  document.getElementById('mon_shift3').checked = coverage[0][2];
+
+  document.getElementById('tue_shift1').checked = coverage[1][0];
+  document.getElementById('tue_shift2').checked = coverage[1][1];
+  document.getElementById('tue_shift3').checked = coverage[1][2];
+
+  document.getElementById('wen_shift1').checked = coverage[2][0];
+  document.getElementById('wen_shift2').checked = coverage[2][1];
+  document.getElementById('wen_shift3').checked = coverage[2][2];
+
+  document.getElementById('thu_shift1').checked = coverage[3][0];
+  document.getElementById('thu_shift2').checked = coverage[3][1];
+  document.getElementById('thu_shift3').checked = coverage[3][2];
+
+  document.getElementById('fri_shift1').checked = coverage[4][0];
+  document.getElementById('fri_shift2').checked = coverage[4][1];
+  document.getElementById('fri_shift3').checked = coverage[4][2];
+
+  document.getElementById('sat_shift1').checked = coverage[5][0];
+  document.getElementById('sat_shift2').checked = coverage[5][1];
+  document.getElementById('sat_shift3').checked = coverage[5][2];
+
+  document.getElementById('sun_shift1').checked = coverage[6][0];
+  document.getElementById('sun_shift2').checked = coverage[6][1];
+  document.getElementById('sun_shift3').checked = coverage[6][2];
+
+
 
   //Reinitalize select
   $('select').formSelect();
@@ -116,9 +112,9 @@ $('#employee_table tbody').on('click', '.edit_button', function() {
 });
 
 // Event handler for delete button
-$('#employee_table tbody').on('click', '.delete_button', function() {
+$('#location_table tbody').on('click', '.delete_button', function() {
   var data = table.row($(this).parents('tr')).data();
-  $('#employee_id_delete').html(data['employee_id']);
+  $('#location_delete').html(data['name']);
 });
 
 // End modal initizing
@@ -127,7 +123,7 @@ $('#employee_table tbody').on('click', '.delete_button', function() {
 
 //Function to edit an location entry
 function put_location() {
-    var name = $("#name").val();
+    var name = $("#name_put").val();
     var coverage = [
         [+ $("#mon_shift1").prop('checked'), + $("#mon_shift2").prop('checked'), + $("#mon_shift3").prop('checked')],
         [+ $("#tue_shift1").prop('checked'), + $("#tue_shift2").prop('checked'), + $("#tue_shift3").prop('checked')],
