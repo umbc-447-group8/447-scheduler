@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+import scheduler
 import flask
 from flask import request, jsonify, Flask, render_template, current_app
 from flask_restful import reqparse, abort, Api, Resource
@@ -421,6 +423,7 @@ class Request(Resource):
 # Homepage
 api.add_resource(EmployeeList, '/api/v1/employees')
 api.add_resource(Employee, '/api/v1/employees/<employee_id>')
+
 api.add_resource(APIKeys, '/api/v1/keys')
 api.add_resource(APIKey, '/api/v1/keys/<api_key_id>')
 api.add_resource(Locations, '/api/v1/locations')
@@ -428,3 +431,4 @@ api.add_resource(Location, '/api/v1/locations/<location_id>')
 api.add_resource(Requests, '/api/v1/requests')
 api.add_resource(Request, '/api/v1/requests/<request_id>')
 app.run()
+scheduler.main()
