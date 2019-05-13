@@ -1,0 +1,35 @@
+header, main, footer {
+     padding-left: 300px;
+}
+
+main {
+   font-family: "Quicksand", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+ @media only screen and (max-width : 992px) {
+   header, main, footer {
+     padding-left: 0;
+   }
+ }
+ .content, .heading{
+   padding-left: 10vw;
+   padding-right: 10vw;
+ }
+
+ .content {
+   padding-top: 2vh;
+   padding-bottom: 2vh;
+ }
+ #logo-container {
+   height: 180px;
+   padding: 50px;
+   /* background-color: grey; */
+ }
+
+ #button-collapse {
+   cursor: pointer;
+ }
+
+ .add_request_form, .edit_employee_modal {
+   padding: 2em;
+ }

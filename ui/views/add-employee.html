@@ -1,0 +1,48 @@
+<div class="heading">
+  <h1>Add Employee</h1>
+</div>
+<div class="divider"></div>
+<div class="content">
+  <div class="row">
+  <form id="add_employee_form" class="col s12">
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="first_name" type="text" pattern="[A-Za-z]+" class="validate" required>
+        <label for="first_name">First Name</label>
+        <span class="helper-text" data-error="Invalid" data-success=""></span>
+        </div>
+      <div class="input-field col s6">
+        <input id="last_name" type="text" pattern="[A-Za-z]+" class="validate" required>
+        <label for="last_name">Last Name</label>
+        <span class="helper-text" data-error="Invalid" data-success=""></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+         <input id="employee_id" type="text" required>
+         <label for="employee_id">Employee ID</label>
+     </div>
+      <div class="input-field col s6">
+         <select id="employee_type">
+           <option value="" disabled selected>Choose your option</option>
+           <option value="Doctor">Doctor</option>
+           <option value="PA">PA</option>
+         </select required>
+       <label>Employee Type</label>
+     </div>
+   </div>
+   <div class="row">
+     <div class="input-field col s6">
+       <select id="moonlighter">
+         <option value="no" selected>Not Moonlighter</option>
+         <option value="yes">Moonlighter</option>
+       </select required>
+     <label>Moonlighter?</label>
+    </div>
+   </div>
+  </form>
+  <button onclick="post_employee()" class ="btn waves-effect waves-light">Submit</button>
+</div>
+</div>
+
+<script src="../scripts/add_employee.js" charset="utf-8"></script>

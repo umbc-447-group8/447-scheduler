@@ -2,18 +2,146 @@
 CMSC 447 Group 8 Project: Scheduling Program for John's Hopkins University
 
 ## Dependencies
-* [Python3](https://www.python.org/downloads/)
+* [Python2](https://www.python.org/downloads/)
 * [pip](https://www.liquidweb.com/kb/install-pip-windows/)
 * Flask (`pip install flask`)
+* Flask (`pip install flask-restful`)
+* Flask (`pip install flask-cors`)
 * OR-Tools (`python -m pip install --user ortools`)
+
+## Installation
+1. Clone the repo.
+1. Open the repo in your file explorer.
+1. Double-click the `install` folder.
+1. Double-click the `install.bat` file.
+1. If a User Account Control window open asking if you would like to allow Python to make changes to your computer, select `yes`.
+1. Wait for the terminal to close.
 
 ## Running the API server
 1. Clone the repo
 1. `cd api`
 1. `python api.py`
 1. Go to http://127.0.0.1:5000 to see homepage for the API
-1. Go to http://127.0.0.1:5000/api/v1/employees to see a list of all employees 
+1. Go to http://127.0.0.1:5000/api/v1/employees to see a list of all employees
 1. Go to http://127.0.0.1:5000/api/v1/employees/{EMPLOYEE_ID} to see single employee
+1. Go to http://127.0.0.1:5000/api/v1/keys to see a list of all keys
+1. Go to http://127.0.0.1:5000/api/v1/keys/{API_KEY_ID} to see single API key
+1. Go to http://127.0.0.1:5000/api/v1/locations to see a list of all locations
+1. Go to http://127.0.0.1:5000/api/v1/locations/{LOCATION_ID} to see single location
+1. Go to http://127.0.0.1:5000/api/v1/requests to see a list of all employee requests
+1. Go to http://127.0.0.1:5000/api/v1/requests/{REQUEST_ID} to see single request
+
+### Running the UI server
+* Ensure flas-cors is installed `pip install flask-cors`
+1. `cd ui`
+2. **python2**: `python server.py` (This script can also be passed a custom IP and port)
+3. **python3** `python -m http.server`
+4. Ensure the API server is also running
+5. Navigate http://localhost:8000
+
+### Supported API Methods:
+* `Get`
+* `Post`
+* `Put` (Must specifiy id as an endpoint)
+* `Delete` (Must specifiy id as an endpoint)
+
+### API Schemas:
+**Employees:**
+```
+[
+  {
+    "employee_id": "DR001",
+    "id": 0,
+    "firstName": "Steven",
+    "firstName": "Strange",
+    "type": "Doctor",
+    "moonlighter": true
+  },
+  {
+    "employee_id": "PA002",
+    "id": 1,
+    "firstName": "Claire",
+    "firstName": "Temple",
+    "type": "PA",
+    "moonlighter": false
+  }
+]
+```
+
+**API Keys:**
+```
+[
+  {
+    "id": 0,
+    "key": "bfxgdsxbtgfegsvtfrsdhrshtrsht",
+    "name": "testKey"
+  },
+  {
+    "id": 1,
+    "key": "gtrsgtrgt4esgt4ht",
+    "name": "newkey2"
+  }
+]
+```
+
+**Locations:**
+```
+[
+  {
+    "coverage": [
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1]
+    ],
+    "id": 0,
+    "name": "Location A"
+  },
+  {
+    "coverage": [
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0],
+      [1, 1, 0]
+    ],
+    "id": 1,
+    "name": "Location B"
+  }
+]
+```
+
+**Requests:**
+```
+[
+  {
+    "day": 3,
+    "employee_id": "DR001",
+    "request_id": 0,
+    "shift": 0,
+    "weight": -2
+  },
+  {
+    "day": 4,
+    "employee_id": "PA001",
+    "request_id": 1,
+    "shift": 3,
+    "weight": 4
+  },
+  {
+    "day": 57,
+    "employee_id": "DR001",
+    "request_id": 2,
+    "shift": 1,
+    "weight": -2
+  }
+]
+```
 
 ## Running the scheduler
 1. Clone the repo

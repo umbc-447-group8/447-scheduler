@@ -29,7 +29,7 @@ shift_constraints = [
 #     (shift, hard_min, soft_min, min_penalty,
 #             soft_max, hard_max, max_penalty)
 weekly_sum_constraints = [
-    # Constraints on rests per week.
+    # Constraints on rests per week. At least 1 rest per week. At most 3 rests per week.
     (0, 1, 2, 7, 2, 3, 4),
     # # At least 1 night shift per week (penalized). At most 4 (hard).
     # (3, 0, 1, 3, 4, 4, 0),

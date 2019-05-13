@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+  <script src="scripts/sammy-latest.min.js"></script>
+  <!-- Import Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- Import Materialize -->
+  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <!-- Import datatables -->
+  <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+  <link rel="stylesheet" href="styles/index.css">
+
+  <script src="app.js"></script>
+  <title>Scheduler</title>
+</head>
+<body>
+  <header>
+
+   <a><i id="button-collapse" class="medium material-icons hide-on-large-only hoverable">menu</i></a>
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+      <li>
+        <div id="logo-container">
+            <div class="background">
+              <img src="assets/images/umbc.png" height="100px" width="200px">
+            </div>
+          </div>
+          <div class="divider"></div>
+      </li>
+     <li><a href="#/">Home</a></li>
+     <li><a href="#/view-employees">Employees</a></li>
+     <li><a href="#/add-employee">Add Employee</a></li>
+     <li><a href="#/view-locations">Loactions</a></li>
+     <li><a href="#/add-location">Add Locations</a></li>
+   </ul>
+
+  </header>
+
+  <main class="main">
+    <div id="app"></div>
+  </main>
+
+  <script>
+
+    //Global variable to declare API path.
+    var apiPath = "http://127.0.0.1:5000/api/v1"
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.sidenav');
+      var instances = M.Sidenav.init(elems);
+
+      var elems = document.querySelectorAll('select');
+      var instances = M.FormSelect.init(elems);
+    });
+
+    document.getElementById('button-collapse').addEventListener('click', function() {
+      var instance = M.Sidenav.getInstance(document.getElementById('slide-out'));
+      if(instance.isOpen){
+        instance.close();
+      } else {
+        instance.open();
+      }
+    });
+  </script>
+
+</body>
+</html>
