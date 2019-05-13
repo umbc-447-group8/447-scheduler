@@ -198,10 +198,15 @@ function put_employee() {
 //Function to edit a request entry
 function put_request() {
   var employee_id = $("#employee_id_request_edit").val();
-  var date = $("date_request_edit").val();
+  var date = $("#date_request_edit").val();
   var shift = $("#shift_request_edit").val();
   var weight = $("#weight_request_edit").val();
   var request_id = document.getElementById('edit_request_id').innerHTML;
+
+  console.log(employee_id);
+  console.log(date);
+  console.log(shift);
+  console.log(weight);
 
   // Make API call
   axios.put(apiPath + '/requests/' + request_id, {
@@ -212,7 +217,7 @@ function put_request() {
     })
     .then(function (response) {
       console.log(response);
-      M.toast({html: request_id + " has been updated", classes: 'rounded green accent-4'});
+      M.toast({html: "Request " + request_id + " has been updated", classes: 'rounded green accent-4'});
       table.ajax.reload();
     })
     .catch(function (error) {
